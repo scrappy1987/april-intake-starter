@@ -65,7 +65,7 @@ public class AccountServiceTest {
 	{
 		service.addAccountFromMap(joeBloggs);
 		service.addAccountFromMap(jasonSmith);
-		Assert.assertEquals(true, service.blockedAccount());
+		Assert.assertEquals(true, service.blockedAccounts());
 		
 		
 	}
