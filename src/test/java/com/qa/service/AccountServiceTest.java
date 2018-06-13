@@ -12,6 +12,7 @@ public class AccountServiceTest {
 	private AccountService service;
 	private Account joeBloggs;
 	private Account janeBloggs;
+	private Account trollingRobert;
 	private JSONUtil util;
 
 	@Before
@@ -19,6 +20,7 @@ public class AccountServiceTest {
 		service = new AccountService();
 		joeBloggs = new Account("Joe", "Bloggs", "1234");
 		janeBloggs = new Account("Jane", "Bloggs", "1234");
+		trollingRobert = new Account("Trolling", "Robert", "9999");
 		util = new JSONUtil();
 	}
 
@@ -57,5 +59,15 @@ public class AccountServiceTest {
 		service.addAccountFromMap(joeGordon);
 		Assert.assertEquals(service.getNumberOfAccountWithFirstName("Joe"), 2);
 	}
+	
+//	@Test
+//	public void checkAccountNumber() {
+//		String value ="";
+//		service.addAccountFromMap(joeBloggs);
+//		service.addAccountFromMap(janeBloggs);
+//		Assert.assertArrayEquals();
+//		
+//		service.addAccountFromMap(janeBloggs);
+//	}
 
 }
