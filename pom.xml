@@ -118,5 +118,7 @@
                 <version>${version.wildfly.maven.plugin}</version>
             </plugin>
         </plugins>
-    </build>
+    </build> 
+
+
 </project>
