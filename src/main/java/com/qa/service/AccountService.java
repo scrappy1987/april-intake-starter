@@ -43,6 +43,7 @@ public class AccountService {
 	        Account curAccount = e.getValue();
 	        if(curAccount.getAccountNumber() == "9999") {
 	        	blockedAccountFound = true;
+	        	System.out.println("this account is blocked");
 	        }
 	    }
 		return blockedAccountFound;
