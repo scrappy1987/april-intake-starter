@@ -2,6 +2,7 @@ package com.qa.service;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.qa.domain.Account;
 
@@ -35,5 +36,23 @@ public class AccountService {
 		return (int) accountMap.values().stream()
 				.filter(eachAccount -> eachAccount.getFirstName().equals(firstNameOfAccount)).count();
 	}
+	
+	
+
+	public boolean blockedAccounts() {
+		boolean blockedAccounts = false;
+		for(Entry<Integer, Account> e : accountMap.entrySet()) {
+			Account selectedAccount = e.getValue();
+			if (selectedAccount.getAccountNumber() == "9999") {
+				blockedAccounts = true;
+				System.out.println("This account is blocked");
+			}
+		}
+		
+		return blockedAccounts;
+	}
+	
+	
+	
 
 }
