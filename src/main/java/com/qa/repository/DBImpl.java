@@ -43,15 +43,28 @@ public class DBImpl {
 	}
 	
 	@Transactional(REQUIRED)
-	public void deleteAccount(long accountID) {
+	public String deleteAccount(long accountID) {
 		Account account = em.find(Account.class, accountID);
-		em.remove(account);
+		if (account != null ) {
+			em.remove(account);
+			return "{\r\n" + "	\"message\": \"account removed\"\r\n" +	"}";
+		}
+		else {
+			return "{\r\n" + "	\"message\": \"no object found in database\"\r\n" +	"}";
+		}
+		
 	}
 	
 	public String getAllAccountsJson() {
 		TypedQuery<Account> query = em.createQuery("SELECT a FROM ACCOUNT a ORDER BY a.firstName ASC", Account.class);
 		List<Account> accounts = query.getResultList();
-		return new Gson().toJson(accounts);
+		if (accounts.size() != 0) {
+			return new Gson().toJson(accounts);
+		}
+		else {
+			return "{\r\n" + "	\"message\": \"no object found in database\"\r\n" +	"}";
+		}
+		
 	}
 	
 	public Account getAccount(long id) {
