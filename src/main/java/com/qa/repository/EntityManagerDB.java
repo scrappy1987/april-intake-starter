@@ -1,5 +1,7 @@
 package com.qa.repository;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Default;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -12,7 +14,9 @@ import com.google.gson.Gson;
 import com.qa.domain.Account;
 
 @Transactional(SUPPORTS)
-public class DBImpl {
+@Default
+@ApplicationScoped
+public class EntityManagerDB implements Database{
 	
 	@PersistenceContext(unitName = "primary")
 	private EntityManager em;
@@ -21,25 +25,46 @@ public class DBImpl {
 	public String createAccount(String newAccJSON) {
 		Account newAcc = new Gson().fromJson(newAccJSON, Account.class);
 		em.persist(newAcc);
-		return newAcc.toString();
+		return "{\r\n" + "	\"message\": \"account created\"\r\n" +	"}";
 	}
 	
 	@Transactional(REQUIRED)
-	public void updateAccountFirstName(long accountID, String newFirstName) {
+	public String updateAccountFirstName(long accountID, String newFirstName) {
 		Account account = em.find(Account.class, accountID);
-		account.setFirstName(newFirstName);
+		if (account != null) {
+			account.setFirstName(newFirstName);
+			return "{\r\n" + "	\"message\": \"account updated\"\r\n" +	"}";
+		}
+		else {
+			return "{\r\n" + "	\"message\": \"no account found\"\r\n" +	"}";
+		}
+		
 	}
 	
 	@Transactional(REQUIRED)
-	public void updateAccountSecondName(long accountID, String newSecondName) {
+	public String updateAccountSecondName(long accountID, String newSecondName) {
 		Account account = em.find(Account.class, accountID);
-		account.setSecondName(newSecondName);
+		if (account != null) {
+			account.setSecondName(newSecondName);
+			return "{\r\n" + "	\"message\": \"account updated\"\r\n" +	"}";
+		}
+		else {
+			return "{\r\n" + "	\"message\": \"no account found\"\r\n" +	"}";
+		}
+		
 	}
 	
 	@Transactional(REQUIRED)
-	public void updateAccountNumber(long accountID, String newAccountNumber) {
+	public String updateAccountNumber(long accountID, String newAccountNumber) {
 		Account account = em.find(Account.class, accountID);
-		account.setAccountNumber(newAccountNumber);
+		if (account != null) {
+			account.setAccountNumber(newAccountNumber);
+			return "{\r\n" + "	\"message\": \"account updated\"\r\n" +	"}";
+		}
+		else {
+			return "{\r\n" + "	\"message\": \"no account found\"\r\n" +	"}";
+		}
+		
 	}
 	
 	@Transactional(REQUIRED)
@@ -52,9 +77,7 @@ public class DBImpl {
 		else {
 			return "{\r\n" + "	\"message\": \"no object found in database\"\r\n" +	"}";
 		}
-		
 	}
-	
 	public String getAllAccountsJson() {
 		TypedQuery<Account> query = em.createQuery("SELECT a FROM ACCOUNT a ORDER BY a.firstName ASC", Account.class);
 		List<Account> accounts = query.getResultList();
@@ -64,11 +87,6 @@ public class DBImpl {
 		else {
 			return "{\r\n" + "	\"message\": \"no object found in database\"\r\n" +	"}";
 		}
-		
-	}
-	
-	public Account getAccount(long id) {
-		return em.find(Account.class, id);
 	}
 	
 	public String getAccountJson(long id) {

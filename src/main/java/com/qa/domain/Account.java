@@ -19,7 +19,11 @@ public class Account {
 		this.secondName = secondName;
 		this.accountNumber = accountNumber;
 	}
-
+	
+	public long getId() {
+		return id;
+	}
+	
 	public String getFirstName() {
 		return firstName;
 	}
