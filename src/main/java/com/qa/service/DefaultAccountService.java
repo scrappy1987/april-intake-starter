@@ -63,6 +63,8 @@ public class DefaultAccountService implements AccountService {
 		return accountRepository.getAccountJson(accountID);
 	}
 
-	
+	public void setRepository(Database repository) {
+		accountRepository = repository;
+	}
 
 }
