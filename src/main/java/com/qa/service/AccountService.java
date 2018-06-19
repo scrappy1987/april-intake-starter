@@ -1,52 +1,11 @@
 package com.qa.service;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import com.qa.domain.Account;
-
-public class AccountService {
-
-	private Map<Integer, Account> accountMap;
-
-	private int count = 0;
-
-	public AccountService() {
-		accountMap = new HashMap<Integer, Account>();
-	}
-
-	public void addAccountFromMap(Account userAccount) {
-		accountMap.put(count, userAccount);
-		count++;
-	}
-
-	public void removeAccountFromMap(Integer accountToRemove) {
-		boolean countExists = accountMap.containsKey(accountToRemove);
-		if (countExists) {
-			accountMap.remove(accountToRemove);
-		}
-	}
-
-	public Map<Integer, Account> getAccountMap() {
-		return accountMap;
-	}
-
-	public int getNumberOfAccountWithFirstName(String firstNameOfAccount) {
-		return (int) accountMap.values().stream()
-				.filter(eachAccount -> eachAccount.getFirstName().equals(firstNameOfAccount)).count();
-	}
-
-	public boolean blockedAccountCheck() {
-		boolean blockedAccountFound = false;
-		for(Entry<Integer, Account> e : accountMap.entrySet()) {
-	        Account curAccount = e.getValue();
-	        if(curAccount.getAccountNumber() == "9999") {
-	        	blockedAccountFound = true;
-	        	System.out.println("this account is blocked");
-	        }
-	    }
-		return blockedAccountFound;
-	}
-
+public interface AccountService {
+	public String createAccount(String AccountJson);
+	public String updateAccountFirstName(long accountID, String newFirstName);
+	public String updateAccountSecondName(long accountID, String newSecondName);
+	public String updateAccountNumber(long accountID, String newAccountNumber);
+	public String deleteAccount(long accountID);
+	public String getAllAccounts();
+	public String getAccount(long accountID);
 }

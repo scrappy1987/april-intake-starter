@@ -9,7 +9,7 @@ import com.qa.util.JSONUtil;
 
 public class AccountServiceTest {
 
-	private AccountService service;
+	private DefaultAccountService service;
 	private Account joeBloggs;
 	private Account janeBloggs;
 	private Account johnSmith;
@@ -17,7 +17,7 @@ public class AccountServiceTest {
 
 	@Before
 	public void init() {
-		service = new AccountService();
+		service = new DefaultAccountService();
 		joeBloggs = new Account("Joe", "Bloggs", "1234");
 		janeBloggs = new Account("Jane", "Bloggs", "1234");
 		johnSmith = new Account("John", "Smith", "9999");

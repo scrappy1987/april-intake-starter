@@ -1,13 +1,13 @@
 package com.qa.application;
 
 import com.qa.domain.Account;
-import com.qa.service.AccountService;
+import com.qa.service.DefaultAccountService;
 import com.qa.util.JSONUtil;
 
 public class App {
 
 	public static void main(String[] args) {
-		AccountService service = new AccountService();
+		DefaultAccountService service = new DefaultAccountService();
 		JSONUtil util = new JSONUtil();
 		Account joeBloggs = new Account("Joe", "Bloggs", "1234");
 		Account janeBloggs = new Account("Jane", "Bloggs", "1234");
