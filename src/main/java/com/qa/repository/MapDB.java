@@ -25,16 +25,8 @@ public class MapDB implements Database{
 	
 	public String createAccount(String newAccJSON) {
 		Account newAcc = new Gson().fromJson(newAccJSON, Account.class);
-		if (newAcc != null) {
-			if (newAcc.getAccountNumber() != "9999") {
-				accountMap.put(newAcc.getId(), newAcc);
-				return "{\r\n" + "	\"message\": \"account created\"\r\n" +	"}";
-			}
-			else {
-				return "{\r\n" + "	\"message\": \"account is blocked\"\r\n" +	"}";
-			}
-		}
-		return "{\r\n" + "	\"message\": \"account creation invalid\"\r\n" +	"}";
+		accountMap.put(newAcc.getId(), newAcc);
+		return "{\r\n" + "	\"message\": \"account created\"\r\n" +	"}";
 	}
 
 	public String updateAccountFirstName(long accountID, String newFirstName) {
@@ -43,7 +35,10 @@ public class MapDB implements Database{
 			foundAccount.setFirstName(newFirstName);
 			return "{\r\n" + "	\"message\": \"account first name updated\"\r\n" +	"}";
 		}
-		return "{\r\n" + "	\"message\": \"account not found\"\r\n" +	"}";
+		else {
+			return "{\r\n" + "	\"message\": \"account not found\"\r\n" +	"}";
+		}
+		
 	}
 
 	public String updateAccountSecondName(long accountID, String newSecondName) {
@@ -52,7 +47,10 @@ public class MapDB implements Database{
 			foundAccount.setSecondName(newSecondName);
 			return "{\r\n" + "	\"message\": \"account second name updated\"\r\n" +	"}";
 		}
-		return "{\r\n" + "	\"message\": \"account not found\"\r\n" +	"}";
+		else {
+			return "{\r\n" + "	\"message\": \"account not found\"\r\n" +	"}";
+		}
+		
 	}
 
 	public String updateAccountNumber(long accountID, String newAccountNumber) {

@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 
 import javax.inject.Inject;
 
+import com.google.gson.Gson;
 import com.qa.domain.Account;
 import com.qa.repository.Database;
 
@@ -17,8 +18,19 @@ public class DefaultAccountService implements AccountService {
 	private int count = 0;
 
 	@Override
-	public String createAccount(String AccountJson) {
-		return accountRepository.createAccount(AccountJson);
+	public String createAccount(String accountJson) {
+		Account newAcc = new Gson().fromJson(accountJson, Account.class);
+		
+		if (newAcc != null && newAcc.getAccountNumber() != "9999") {
+			return accountRepository.createAccount(accountJson);
+		}
+		else if (newAcc.getAccountNumber() == "9999") {
+			return "{\r\n" + "	\"message\": \"This account is blocked\"\r\n" +	"}";
+		}
+		else {
+			return "{\r\n" + "	\"message\": \"Account creation invalid\"\r\n" +	"}";
+		}
+		
 	}
 
 	@Override
